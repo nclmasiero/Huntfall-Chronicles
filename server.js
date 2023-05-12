@@ -14,10 +14,15 @@ const server = app.listen(3000, () => {
 const io = socketio(server);
 
 // code
-var v = new NclVector(1, 1);
-console.log(NclVector.radiansToDegrees(v.getAngle()));
+
 
 // events
 io.on("connection", (socket) => {
     console.log("New connection: " + socket.id);
+
+    socket.emit("setKeys", [83, 87]);
+
+    socket.on("inputUpdate", (inputs) => {
+        console.log(inputs);
+    });
 });
