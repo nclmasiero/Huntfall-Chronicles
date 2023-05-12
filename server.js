@@ -4,6 +4,7 @@ const socketio = require("socket.io");
 const Entity = require("./base/entity.js");
 const NclVector = require("./base/vector.js");
 const utils = require("./base/utils.js");
+const inputHandler = require("./base/inputHandler.js");
 
 // server setup
 const app = express();
@@ -14,15 +15,18 @@ const server = app.listen(3000, () => {
 const io = socketio(server);
 
 // code
-
+function myFunc(inputs) {
+    console.log(inputs);
+}
 
 // events
 io.on("connection", (socket) => {
     console.log("New connection: " + socket.id);
-
+    
     socket.emit("setKeys", [83, 87]);
+    inputHandler.addPair(socket.id, myFunc);
 
     socket.on("inputUpdate", (inputs) => {
-        console.log(inputs);
+        inputHandler.receiveInput(socket.id, inputs);
     });
 });

@@ -1,21 +1,30 @@
 class InputHandler {
     constructor(toRecord = []) {
         this.toRecord = toRecord; // arrays of keys to keep track of
+        this.recordMouse = true;
     }
 
     update() {
         let inputs = [];
-        let doSend = false;
 
-        for(let i = 0; i < this.toRecord.length; i++) {
-            let isPressed = keyIsDown(this.toRecord[i]);
-            if(isPressed) doSend = true;
+        if(this.recordMouse) {
             inputs.push({
-                key: this.toRecord[i],
-                value: isPressed
+                type: "mouse",
+                position: {
+                    x: mouseX,
+                    y: mouseY
+                }
             });
         }
 
-        if(doSend) socket.emit("inputUpdate", inputs);
+        for(let i = 0; i < this.toRecord.length; i++) {
+            inputs.push({
+                type: "key",
+                code: this.toRecord[i],
+                value: keyIsDown(this.toRecord[i])
+            });
+        }
+
+        socket.emit("inputUpdate", inputs);
     }
 }
