@@ -5,6 +5,7 @@ const Entity = require("./base/entity.js");
 const NclVector = require("./base/vector.js");
 const utils = require("./base/utils.js");
 const inputHandler = require("./base/inputHandler.js");
+const PlayerMovement = require("./base/scripts/playerMovement.js");
 
 // server setup
 const app = express();
@@ -15,16 +16,24 @@ const server = app.listen(3000, () => {
 const io = socketio(server);
 
 // code
-function myFunc(inputs) {
-    console.log(inputs);
-}
+var entities = [];
+setInterval(() => {
+    for(let entity of entities) {
+        entity.update();
+    }
+}, 16);
 
 // events
 io.on("connection", (socket) => {
     console.log("New connection: " + socket.id);
     
-    socket.emit("setKeys", [83, 87]);
-    inputHandler.addPair(socket.id, myFunc);
+    entities.push(new Entity("tmp", 300, 300, 40, 40, [
+        new PlayerMovement(socket)
+    ]));
+
+    socket.on("getUpdate", () => {
+        socket.emit("update", entities);
+    });
 
     socket.on("inputUpdate", (inputs) => {
         inputHandler.receiveInput(socket.id, inputs);
