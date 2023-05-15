@@ -9,6 +9,8 @@ class PlayerMovement extends Script {
     }
 
     setup() {
+        this.ps = this.parent.getScript("Physics");
+        
         this.socket.emit("setKeys", [83, 87, 65, 68]);
         input.addPair(this.socket.id, (inputs) => {
             let xDirection = 0;
@@ -23,8 +25,7 @@ class PlayerMovement extends Script {
                 if(input.code == 65) xDirection--;
                 if(input.code == 68) xDirection++;
 
-                this.parent.position.x += xDirection;
-                this.parent.position.y += yDirection;
+                this.ps.addSpeed(xDirection, yDirection);
             }
         });
     }

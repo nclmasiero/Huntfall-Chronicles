@@ -29,6 +29,13 @@ class Entity {
         newScript.setParent(this);
         newScript.setup();
     }
+
+    getScript(name) {
+        for(let script of this.scripts) {
+            if(script.name == name) return script;
+        }
+        return null;
+    }
 }
 
 module.exports = Entity;

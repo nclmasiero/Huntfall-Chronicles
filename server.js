@@ -6,6 +6,7 @@ const NclVector = require("./base/vector.js");
 const utils = require("./base/utils.js");
 const inputHandler = require("./base/inputHandler.js");
 const PlayerMovement = require("./base/scripts/playerMovement.js");
+const Physics = require("./base/scripts/physics.js");
 
 // server setup
 const app = express();
@@ -28,6 +29,7 @@ io.on("connection", (socket) => {
     console.log("New connection: " + socket.id);
     
     entities.push(new Entity("tmp", 300, 300, 40, 40, [
+        new Physics(),
         new PlayerMovement(socket)
     ]));
 
