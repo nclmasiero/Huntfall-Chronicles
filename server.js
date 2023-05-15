@@ -32,7 +32,11 @@ io.on("connection", (socket) => {
     ]));
 
     socket.on("getUpdate", () => {
-        socket.emit("update", entities);
+        let toSend = [];
+        for(let entity of entities) {
+            toSend.push(entity.getNeat());
+        }
+        socket.emit("update", toSend);
     });
 
     socket.on("inputUpdate", (inputs) => {

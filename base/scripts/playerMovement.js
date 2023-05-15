@@ -13,8 +13,7 @@ class PlayerMovement extends Script {
         input.addPair(this.socket.id, this.newInput);
     }
 
-    newInput(data) {
-        console.log(data);
+    newInput(inputs) {
     }
 }
 

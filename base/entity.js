@@ -15,6 +15,10 @@ class Entity {
         }
     }
 
+    getNeat() {
+        return new Entity(this.name, this.position.x, this.position.y, this.size.x, this.size.y);
+    }
+
     update() {
         for(let script of this.scripts) {
             if(script.isEnabled) script.update();
