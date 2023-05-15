@@ -23,7 +23,8 @@ function draw() {
     for(let entity of entities) {
         noStroke();
         fill(255);
-        circle(entity.position.x, entity.position.y, entity.size.x * 2);
+        rectMode(CENTER);
+        rect(entity.position.x, entity.position.y, entity.size.x, entity.size.y);
     }
 
     socket.emit("getUpdate");

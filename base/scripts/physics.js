@@ -2,18 +2,29 @@ const Script = require("../script.js");
 const NclVector = require("../vector.js");
 
 class Physics extends Script {
-    constructor() {
+    constructor(entities) {
         super("Physics");
 
         this.speed = new NclVector(0, 0);
         this.maxSpeed = 15;
+        this.isOnFloor = false;
+        this.entities = entities;
+    }
+
+    setup() {
+        this.mask = this.parent.getScript("Mask");
     }
 
     update() {
         this.applySpeed();
         this.applyFriction();
         this.applyGravity();
+        this.checkFloor();
+
         this.capSpeed();
+
+        // other stuff
+        this.checkCollisions();
     }
 
     // utils
@@ -40,6 +51,31 @@ class Physics extends Script {
     applyGravity() {
         let gravity = 0.45;
         this.addSpeed(0, gravity);
+    }
+
+    checkFloor() { // temporary
+        let floorLevel = 600;
+        if (this.parent.position.y > floorLevel) {
+            this.parent.position.y = floorLevel;
+            this.speed.y = 0;
+            this.isOnFloor = true;
+        } else this.isOnFloor = false;
+    }
+
+    checkCollisions() {
+        for (let entity of this.entities) {
+            if(entity == this) continue;
+
+            let otherMask = entity.getScript("Mask");
+            let otherPhysics = entity.getScript("Physics");
+
+            if(otherMask == null) continue;
+            if(otherPhysics == null) continue;
+        
+            if (this.mask.isOverlapping(otherMask)) {
+                console.log("collision");
+            }
+        }
     }
 }
 

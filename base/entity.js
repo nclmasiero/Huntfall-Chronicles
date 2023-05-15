@@ -10,7 +10,11 @@ class Entity {
 
         this.scripts = [];
         for(let script of scripts) {
-            this.addScript(script);
+            this.scripts.push(script);
+            script.setParent(this);   
+        }
+        for(let script of scripts) {
+            script.setup();
         }
     }
 
