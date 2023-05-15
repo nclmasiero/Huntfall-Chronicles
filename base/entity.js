@@ -7,7 +7,6 @@ class Entity {
         this.size = new NclVector(width, height);
 
         this.rotation = 0;
-        this.speed = new NclVector(0, 0);
 
         this.scripts = [];
         for(let script of scripts) {
