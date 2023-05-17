@@ -7,7 +7,6 @@ const utils = require("./base/utils.js");
 const inputHandler = require("./base/inputHandler.js");
 const PlayerMovement = require("./base/scripts/playerMovement.js");
 const Physics = require("./base/scripts/physics.js");
-const Mask = require("./base/scripts/mask.js");
 
 // server setup
 const app = express();
@@ -23,6 +22,8 @@ setInterval(() => {
     for(let entity of entities) {
         entity.update();
     }
+
+    Collision.checkAllCollisions(entities);
 }, 16);
 
 // events
