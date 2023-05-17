@@ -5,8 +5,11 @@ const Entity = require("./base/entity.js");
 const NclVector = require("./base/vector.js");
 const utils = require("./base/utils.js");
 const inputHandler = require("./base/inputHandler.js");
+const Collision = require("./base/collision.js");
+
 const PlayerMovement = require("./base/scripts/playerMovement.js");
 const Physics = require("./base/scripts/physics.js");
+const Mask = require("./base/scripts/mask.js");
 
 // server setup
 const app = express();
@@ -23,7 +26,7 @@ setInterval(() => {
         entity.update();
     }
 
-    Collision.checkAllCollisions(entities);
+    Collision.checkCollisions(entities);
 }, 16);
 
 // events
@@ -31,7 +34,7 @@ io.on("connection", (socket) => {
     console.log("New connection: " + socket.id);
     
     entities.push(new Entity("tmp", 300, 300, 40, 40, [
-        new Physics(entities),
+        new Physics(),
         new PlayerMovement(socket),
         new Mask()
     ]));

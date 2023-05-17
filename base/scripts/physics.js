@@ -2,13 +2,12 @@ const Script = require("../script.js");
 const NclVector = require("../vector.js");
 
 class Physics extends Script {
-    constructor(entities) {
+    constructor() {
         super("Physics");
 
         this.speed = new NclVector(0, 0);
         this.maxSpeed = 15;
         this.isOnFloor = false;
-        this.entities = entities;
     }
 
     update() {
