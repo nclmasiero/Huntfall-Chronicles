@@ -13,7 +13,7 @@ class Collision {
                 
                 if (collisionVector != false) {
                     let collision = new Collision(entities[i], entities[j], collisionVector);
-                    if (!collision.errored) collision.applyCollision();
+                    collision.applyCollision();
                 }
             }
         }
@@ -32,21 +32,12 @@ class Collision {
 
     applyCollision() {
         this.snapBodies();
-        this.bounceBodies();
+        // this.bounceBodies();
     }
     
     snapBodies() {
         this.a.position.add(this.vec);
         this.b.position.sub(this.vec);
-    }
-    
-    bounceBodies() {
-        let pA = this.a.getScript("Physics");
-        let pB = this.b.getScript("Physics");
-
-        console.log(this.vec);
-        pA.addSpeed(this.vec);
-        pB.addSpeed(this.vec.getReverseCopy());
     }
 }
 

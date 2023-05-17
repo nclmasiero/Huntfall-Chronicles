@@ -18,6 +18,13 @@ class NclVector {
 
     setMag(newMag) {
         let currentMag = this.getMag();
+
+        if (currentMag == 0) return;
+        if (newMag == 0) {
+            this.x = 0;
+            this.y = 0;
+        }
+
         this.x = this.x * newMag / currentMag;
         this.y = this.y * newMag / currentMag;
     }

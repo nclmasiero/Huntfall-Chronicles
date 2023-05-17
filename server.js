@@ -20,6 +20,12 @@ const server = app.listen(3000, () => {
 const io = socketio(server);
 
 // code
+let v = new NclVector(12, 32);
+let v1 = v.getCopy();
+v1.sub(v);
+v1.setMag(0);
+console.log(v1);
+
 var entities = [];
 setInterval(() => {
     for(let entity of entities) {
