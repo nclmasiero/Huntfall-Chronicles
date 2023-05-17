@@ -13,8 +13,8 @@ class Physics extends Script {
     update() {
         this.applySpeed();
         this.applyFriction();
-        this.applyGravity();
-        this.checkFloor();
+        // this.applyGravity();
+        // this.checkFloor();
 
         this.capSpeed();
     }
@@ -32,7 +32,10 @@ class Physics extends Script {
     applyFriction() {
         let friction = 0.3;
         this.speed.x += -Math.sign(this.speed.x) * friction;
+        this.speed.y += -Math.sign(this.speed.y) * friction;
+
         if(Math.abs(this.speed.x) < friction) this.speed.x = 0;
+        if(Math.abs(this.speed.y) < friction) this.speed.y = 0;
     }
 
     capSpeed() {

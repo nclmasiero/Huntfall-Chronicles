@@ -15,7 +15,7 @@ class Mask extends Script {
         let yDist = this.parent.position.y - otherMask.parent.position.y;
         let distance = Math.sqrt(xDist * xDist + yDist * yDist);
 
-        let collisionVector = new NclVector(this.parent.position.x, this.parent.position.y);
+        let collisionVector = this.parent.position.getCopy();
         collisionVector.sub(otherMask.parent.position);
         collisionVector.setMag(Math.abs(distance - rSum));
 

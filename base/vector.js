@@ -41,6 +41,21 @@ class NclVector {
     getAngle() {
         return Math.atan(this.x / this.y);
     }
+
+    getCopy() {
+        return new NclVector(this.x, this.y);
+    }
+
+    reverse() {
+        this.x *= -1;
+        this.y *= -1;
+    }
+
+    getReverseCopy() {
+        let ret = this.getCopy();
+        ret.reverse();
+        return ret;
+    }
 }
 
 module.exports = NclVector;
